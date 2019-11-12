@@ -135,13 +135,12 @@ kubectl apply -f my-manifest-using-my-image:unique-tag
 **Note**: The Kubernetes default pull policy is `IfNotPresent` unless
 the image tag is `:latest` in which case the default policy is `Always`.
 `IfNotPresent` causes the Kubelet to skip pulling an image if it already exists.
-If you want those images loaded into node to work as expected, please:
+If you want those images loaded into node to work as expected, please either:
 
-- don't use a `:latest` tag
-
-and / or:
-
-- specify `imagePullPolicy: IfNotPresent` or `imagePullPolicy: Never` on your container(s).
+- Leave `imagePullPolicy` unset so that it uses the default behavior
+- If you use a `:latest` tag set `imagePullPolicy` to `Always`
+- If you use a unique tag whenever your image changes, set `imagePullPolicy` to
+  `IfNotPresent` or `Always`
 
 See [Kubernetes imagePullPolicy][Kubernetes imagePullPolicy] for more information.
 
